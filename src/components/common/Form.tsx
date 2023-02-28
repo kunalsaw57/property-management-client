@@ -112,7 +112,7 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                         </Typography>
                     </Stack>
                     <CustomButton
-                        type="sumbit"
+                        type="submit"
                         title={formLoading ? 'Submitting...' : 'Submit'}
                         backgroundColor="#475be8"
                         color="#fcfcfc"
