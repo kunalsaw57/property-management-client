@@ -51,7 +51,7 @@ const Form = ({ type, register, handleSubmit, handleImageChange, formLoading, on
                                 color="info"
                                 displayEmpty
                                 required
-                                inputProps={{ 'area-label': 'Without label' }}
+                                inputProps={{ 'aria-label': 'Without label' }}
                                 defaultValue="apartment"
                                 {...register('propertyType', { required: true })}
                             >
