@@ -2,7 +2,7 @@ import { Add } from '@mui/icons-material';
 import { useTable } from '@pankod/refine-core';
 import { Box, Stack, TextField, Typography, Select, MenuItem } from '@pankod/refine-mui';
 import { useNavigate } from '@pankod/refine-react-router-v6';
-
+import { useMemo } from 'react';
 import { PropertyCard, CustomButton } from 'components/common';
 
 const AllProperties = () => {
@@ -20,6 +20,19 @@ const AllProperties = () => {
     } = useTable();
 
     const allProperties = data?.data ?? [];
+
+    const currentPrice = sorter.find((item) => item.field === 'price')?.order;
+
+    const toggleSort = (field: string) => {
+        setSorter([{ field, order: currentPrice === 'asc' ? 'desc' : 'asc' }])
+    }
+
+    const currentFilterValues = useMemo(() => {
+        const logicalFilters = filters.flatMap((item) => ('field' in item ? item : []));
+        return {
+            title: logicalFilters.find((item) => item.field === 'title')?.value || '',
+        }
+    }, [filters])
 
     if (isLoading)
         return <Typography>Loading...</Typography>
@@ -40,8 +53,8 @@ const AllProperties = () => {
                     <Box mb={2} mt={3} display="flex" width="84%" justifyContent="space-between" flexWrap="wrap">
                         <Box display="flex" gap={2} flexWrap="wrap" mb={{ xs: '20px', sm: 0 }} >
                             <CustomButton
-                                title={`Sort price`}
-                                handleClick={() => { }}
+                                title={`Sort price ${currentPrice === 'asc' ? '↑' : '↓'} `}
+                                handleClick={() => toggleSort('price')}
                                 backgroundColor="#475be8"
                                 color="#fcfcfc"
                             />
@@ -49,15 +62,23 @@ const AllProperties = () => {
                                 variant="outlined"
                                 color="info"
                                 placeholder="Search by title "
-                                value=''
-                                onChange={() => { }}
-                                />
+                                value={currentFilterValues.title}
+                                onChange={(e) => {
+                                    setFilters([
+                                        {
+                                            field: 'title',
+                                            operator: 'contains',
+                                            value: e.currentTarget.value ? e.currentTarget.value : undefined
+                                        }
+                                    ])
+                                }}
+                            />
                             <Select
                                 variant="outlined"
                                 color="info"
                                 displayEmpty
                                 required
-                                inputProps={{'aria-label':'Without label'}}
+                                inputProps={{ 'aria-label': 'Without label' }}
                                 defaultValue=""
                                 value=""
                                 onChange={() => { }}
@@ -93,6 +114,42 @@ const AllProperties = () => {
                     />
                 ))}
             </Box>
+            {allProperties.length > 0 && (
+                <Box display="flex" gap={2} mt={3} flexWrap="wrap">
+                    <CustomButton
+                        title="Previous"
+                        handleClick={() => setCurrent((prev) => prev - 1)}
+                        backgroundColor="#475be8"
+                        color="#fcfcfc"
+                        disabled={!(current > 1)}
+                    />
+                    <Box display={{ xs: 'hidden', sm: 'flex' }}
+                        alignItems="center" gap="5px" >
+                        Page{' '}<strong>{current} of {pageCount}</strong>
+                    </Box>
+                    <CustomButton
+                        title="Next"
+                        handleClick={() => setCurrent((prev) => prev + 1)}
+                        backgroundColor="#475be8"
+                        color="#fcfcfc"
+                        disabled={!(current === pageCount)}
+                    />
+                    <Select
+                        variant="outlined"
+                        color="info"
+                        displayEmpty
+                        required
+                        inputProps={{ 'aria-label': 'Without label' }}
+                        defaultValue={10}
+                        onChange={() => { }}
+                    >
+                        {[10, 20, 30, 40, 50].map((size) => (
+                            <MenuItem key={size} value={size}>Show {size}</MenuItem>
+                        ))}
+                    </Select>
+
+                </Box>
+            )}
         </Box>
     )
 }
