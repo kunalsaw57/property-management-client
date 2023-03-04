@@ -41,7 +41,15 @@ export const Login: React.FC = () => {
   return (
     <Box
       component="div"
-      sx={{ backgroundColor: "#FCFCFC" }}
+      sx={{
+        backgroundImage: `url('https://res.cloudinary.com/dw6dekesu/image/upload/v1677911769/bg_lgofpr.jpg')`,
+        height: '100vh',
+        backgroundSize: 'cover',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center'
+      }}
+
     >
       <Container
         component="main"
@@ -50,15 +58,19 @@ export const Login: React.FC = () => {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          height: "100vh",
+          backgroundColor: "#FFFFFF",
+          borderRadius: '30px',
+          boxShadow: '0px 5px 5px rgba(0, 0, 0, 0.25)'
         }}
       >
         <Box
           sx={{
+            my: "40px",
             display: "flex",
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
+            
           }}
         >
           <div><img src={yariga} alt="Yariga Logo" /></div>
