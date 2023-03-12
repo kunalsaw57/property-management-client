@@ -4,8 +4,8 @@ import { Box, Stack, Typography } from '@pankod/refine-mui';
 import { Link } from '@pankod/refine-react-router-v6';
 import { AgentCardProp, InfoBarProps } from 'interfaces/agent';
 
-const InfoBar = ({icon, name}: InfoBarProps)=>(
-    <Stack flex={1} minWidth={{xs:'100%', sm:300}} gap={1.5} direction="row">
+const InfoBar = ({ icon, name }: InfoBarProps) => (
+    <Stack flex={1} minWidth={{ xs: '100%', sm: 300 }} gap={1.5} direction="row">
         {icon}
         <Typography fontSize={14} color="#808191">{name}</Typography>
     </Stack>
@@ -14,8 +14,9 @@ const InfoBar = ({icon, name}: InfoBarProps)=>(
 const AgentCard = ({ id, name, email, avatar, noOfProperties }: AgentCardProp) => {
     const { data: currentUser } = useGetIdentity();
     const generateLink = () => {
-        if (currentUser.email === email) return '/my-profile'
-        return `/agent/show/${id}`;
+        if (currentUser.email === email)
+            return '/my-profile'
+        return `/agents/show/${id}`;
     }
     return (
         <Box
@@ -46,19 +47,19 @@ const AgentCard = ({ id, name, email, avatar, noOfProperties }: AgentCardProp) =
                 </Stack>
                 <Stack direction="row" flexWrap="wrap" justifyContent="space-between" alignItems="center" gap={2}>
                     <InfoBar
-                        icon={<EmailOutlined sx={{color:'#808191'}} />}
+                        icon={<EmailOutlined sx={{ color: '#808191' }} />}
                         name={email}
                     />
                     <InfoBar
-                        icon={<Place sx={{color:'#808191'}} />}
+                        icon={<Place sx={{ color: '#808191' }} />}
                         name={"Delhi"}
                     />
                     <InfoBar
-                        icon={<Phone sx={{color:'#808191'}} />}
+                        icon={<Phone sx={{ color: '#808191' }} />}
                         name={"+91 985689785"}
                     />
                     <InfoBar
-                        icon={<LocationCity sx={{color:'#808191'}} />}
+                        icon={<LocationCity sx={{ color: '#808191' }} />}
                         name={`${noOfProperties} Properties`}
                     />
                 </Stack>

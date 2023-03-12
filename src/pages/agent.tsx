@@ -30,7 +30,6 @@ const Agents = () => {
                         email={agent.email}
                         avatar={agent.avatar}
                         noOfProperties={agent.allProperties.length}                     
-                        
                     />
                 ))}
             </Box>
