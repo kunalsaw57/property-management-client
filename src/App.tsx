@@ -1,42 +1,14 @@
-import React from "react";
-
 import { Refine, AuthProvider } from "@pankod/refine-core";
-import {
-  notificationProvider,
-  RefineSnackbarProvider,
-  CssBaseline,
-  GlobalStyles,
-  ReadyPage,
-  ErrorComponent,
-} from "@pankod/refine-mui";
-import {
-  AccountCircleOutlined,
-  ChatBubbleOutline,
-  PeopleAltOutlined,
-  StarOutlineRounded,
-  VillaOutlined,
-} from '@mui/icons-material'
-
+import { notificationProvider, RefineSnackbarProvider, CssBaseline, GlobalStyles, ReadyPage, ErrorComponent } from "@pankod/refine-mui";
+import { AccountCircleOutlined, ChatBubbleOutline, PeopleAltOutlined, StarOutlineRounded, VillaOutlined } from '@mui/icons-material'
 import dataProvider from "@pankod/refine-simple-rest";
-// import { MuiInferencer } from "@pankod/refine-inferencer/mui";
 import routerProvider from "@pankod/refine-react-router-v6";
 import axios, { AxiosRequestConfig } from "axios";
 import { ColorModeContextProvider } from "contexts";
 import { Title, Sider, Layout, Header } from "components/layout";
 import { CredentialResponse } from "interfaces/google";
 import { parseJwt } from "utils/parse-jwt";
-import {
-  Login,
-  Home,
-  Agents,
-  MyProfile,
-  PropertyDetails,
-  AllProperties,
-  CreateProperty,
-  AgentProfile,
-  EditProperty,
-} from "pages";
-// import myProfile from "pages/my-profile";
+import { Login, Home, Agents, MyProfile, PropertyDetails, AllProperties, CreateProperty, AgentProfile, EditProperty } from "pages";
 
 const axiosInstance = axios.create();
 axiosInstance.interceptors.request.use((request: AxiosRequestConfig) => {
@@ -57,7 +29,6 @@ function App() {
     login: async ({ credential }: CredentialResponse) => {
       const profileObj = credential ? parseJwt(credential) : null;
 
-      // Save user to MongoDB
       if (profileObj) {
         const response = await fetch('http://localhost:8080/api/v1/users', {
           method: 'POST',
@@ -66,7 +37,7 @@ function App() {
             name: profileObj.name,
             email: profileObj.email,
             avatar: profileObj.picture,
-          }), 
+          }),
         });
 
         const data = await response.json();
