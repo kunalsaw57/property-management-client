@@ -1,8 +1,8 @@
 import { useEffect, useRef } from "react";
 import { useLogin } from "@pankod/refine-core";
-import { Container, Box } from "@pankod/refine-mui";
-import { yariga } from "../assets";
+import { homeharbor } from "../assets";
 import { CredentialResponse } from "../interfaces/google";
+import { Container, Box, TextField, Button, Typography } from "@pankod/refine-mui";
 
 export const Login: React.FC = () => {
   const { mutate: login } = useLogin<CredentialResponse>();
@@ -27,7 +27,7 @@ export const Login: React.FC = () => {
         });
         window.google.accounts.id.renderButton(divRef.current, {
           theme: "filled_blue",
-          size: "medium",
+          size: "large",
           type: "standard",
         });
       } catch (error) {
@@ -60,7 +60,8 @@ export const Login: React.FC = () => {
           justifyContent: "center",
           backgroundColor: "#FFFFFF",
           borderRadius: '30px',
-          boxShadow: '0px 5px 5px rgba(0, 0, 0, 0.25)'
+          boxShadow: '0px 5px 5px rgba(0, 0, 0, 0.25)',
+          height: '75%'
         }}
       >
         <Box
@@ -70,11 +71,15 @@ export const Login: React.FC = () => {
             justifyContent: "center",
             flexDirection: "column",
             alignItems: "center",
-            
           }}
         >
-          <div><img src={yariga} alt="Yariga Logo" /></div>
-          <Box mt={4}><GoogleButton /></Box>
+          <div><img src={homeharbor} alt="HomeHarbor Logo" width="250px" /></div>
+          <TextField label="Username" variant="outlined" margin="normal" sx={{ width: "360px", mt: "30px" }} />
+          <TextField label="Password" variant="outlined" margin="normal" sx={{ width: "360px", mt: "10px" }} type="password" />
+          <Button type="submit" variant="contained" color="primary" sx={{ mt: "20px", width: "360px", height: "56px" }}>Login</Button>
+          <Button type="submit" variant="contained" sx={{ mt: "20px", width: "360px", height: "56px", backgroundColor: 'blue', '&:hover': { backgroundColor: '#00056e', } }}>Sign Up</Button>
+          <Typography fontSize={20} fontWeight={700} mt={2}>OR</Typography>
+          <Box mt={2}><GoogleButton /></Box>
         </Box>
       </Container>
     </Box>

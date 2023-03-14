@@ -1,7 +1,7 @@
-import logo from './logo.svg';
-import yariga from './yariga.svg';
+import logo from './logo.png';
+import homeharbor from './homeharbor.svg';
 
 export {
   logo,
-  yariga,
+  homeharbor,
 };
